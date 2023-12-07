@@ -37,7 +37,7 @@ public class Server {
     }
 
     public static String returnMessage(String message) throws IOException {
-        if (message.equals("HIT ME")) {
+        if (message.equalsIgnoreCase("HIT ME")) {
             //FileReader fileRead = new FileReader("/Users/mindera/Documents/inspirationalDB.txt");
             List<String> phrases = Files.readAllLines(Paths.get("/Users/mindera/Documents/inspirationalDB.txt"));
             int rand = (int) (Math.random() * phrases.size());
