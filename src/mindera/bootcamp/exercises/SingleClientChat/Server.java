@@ -28,9 +28,9 @@ public class Server {
             }
             System.out.println("mensagem do cliente: " + message);
             out.println("message received");
+
         }
 
-        System.out.println("Client Ended Comunication.");
         in.close();
         out.close();
         clientSocket.close();
