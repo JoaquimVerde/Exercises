@@ -34,5 +34,7 @@ public class Server {
         in.close();
         out.close();
         clientSocket.close();
+        //did not close serverSocket because server would always be open.
+        //remember to stop running.
     }
 }
