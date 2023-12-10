@@ -2,7 +2,9 @@ package mindera.bootcamp.exercises.TheSimsExercise.player;
 
 import mindera.bootcamp.exercises.TheSimsExercise.House.House;
 import mindera.bootcamp.exercises.TheSimsExercise.Maid;
+import mindera.bootcamp.exercises.TheSimsExercise.Room.Room;
 import mindera.bootcamp.exercises.TheSimsExercise.Room.RoomType;
+import mindera.bootcamp.exercises.TheSimsExercise.activity.*;
 
 public abstract class Sims implements SimsI {
 
@@ -31,8 +33,11 @@ public abstract class Sims implements SimsI {
             return;
         }
         hasHouse = true;
+        house.occupy();
         this.house = house;
         money -= house.getPrice();
+        System.out.println(name + " just bought a " + house.getType() + " house!!");
+        System.out.println(name + " has now " + money + " money.");
     }
 
     public void useBathRoom() {
@@ -44,9 +49,12 @@ public abstract class Sims implements SimsI {
             System.out.println("You don't have that room!");
             return;
         }
-
         house.setCleanlinessLevel(house.getCleanlinessLevel() - 20);
-
+        Activity activity = chooseActivity(house.getRooms()[2]);
+        if (activity.equals(house.getRooms()[2].getActivities()[0])) {
+            new GoToBathroom().goToBathRoom(this);
+        }
+        System.out.println("House is now at Clean level: " + house.getCleanlinessLevel());
     }
 
     public void useBedRoom() {
@@ -58,9 +66,15 @@ public abstract class Sims implements SimsI {
             System.out.println("You don't have that room!");
             return;
         }
-
         house.setCleanlinessLevel(house.getCleanlinessLevel() - 25);
-
+        Activity activity = chooseActivity(house.getRooms()[0]);
+        if (activity.equals(house.getRooms()[0].getActivities()[0])) {
+            new Sleeping().sleeping(this);
+        }
+        if (activity.equals(house.getRooms()[0].getActivities()[1])) {
+            new WorkingOut().workingOut(this);
+        }
+        System.out.println("House is now at Clean level: " + house.getCleanlinessLevel());
     }
 
     public void useLivingRoom() {
@@ -68,15 +82,16 @@ public abstract class Sims implements SimsI {
             System.out.println("you do not own a house or it needs cleaning.");
             return;
         }
-
         if (!checkIfHouseHasRoom(RoomType.LIVINGROOM)) {
             System.out.println("You don't have that room!");
             return;
         }
-
-
         house.setCleanlinessLevel(house.getCleanlinessLevel() - 15);
-
+        Activity activity = chooseActivity(house.getRooms()[3]);
+        if (activity.equals(house.getRooms()[3].getActivities()[0])) {
+            new Eating().eating(this);
+        }
+        System.out.println("House is now at Clean level: " + house.getCleanlinessLevel());
     }
 
     public void useKitchen() {
@@ -89,7 +104,14 @@ public abstract class Sims implements SimsI {
             return;
         }
         house.setCleanlinessLevel(house.getCleanlinessLevel() - 30);
-
+        Activity activity = chooseActivity(house.getRooms()[1]);
+        if (activity.equals(house.getRooms()[1].getActivities()[0])) {
+            new Eating().eating(this);
+        }
+        if (activity.equals(house.getRooms()[1].getActivities()[1])) {
+            new Working().working(this);
+        }
+        System.out.println("House is now at Clean level: " + house.getCleanlinessLevel());
     }
 
     public void useOfficeRoom() {
@@ -102,15 +124,34 @@ public abstract class Sims implements SimsI {
             return;
         }
         house.setCleanlinessLevel(house.getCleanlinessLevel() - 10);
+        Activity activity = chooseActivity(house.getRooms()[4]);
+        if (activity.equals(house.getRooms()[4].getActivities()[0])) {
+            new Working().working(this);
+        }
+        System.out.println("House is now at Clean level: " + house.getCleanlinessLevel());
     }
 
 
-    public void getMaid(int money, Maid maid) {
-        if (money > 19) {
-            maid.setCleaning(true);
-            house.setCleanlinessLevel(100);
+    public Activity chooseActivity(Room room) {
+        int rand = (int) (Math.random() * room.getActivities().length);
+        return room.getActivities()[rand];
+    }
+
+
+    public void getMaid(int amountToPay, Maid maid) {
+        if (maid.isCleaning()) {
+            System.out.println("Maid is unavailable.");
+            return;
         }
-        System.out.println("Need to pay more.");
+        if (amountToPay < maid.getPrice() || amountToPay > money) {
+            System.out.println("You cannot afford this Maid");
+            return;
+        }
+        maid.setCleaning(true);
+        house.setCleanlinessLevel(100);
+        money -= amountToPay;
+        System.out.println(name + " cleaned the house! House clean level is now: " + house.getCleanlinessLevel());
+        System.out.println(name + " has now this money " + money);
     }
 
     public boolean checkIfHouseHasRoom(RoomType type) {

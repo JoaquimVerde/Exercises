@@ -41,5 +41,15 @@ public abstract class House {
         return rooms;
     }
 
+    public boolean IsOccupied() {
+        return occupied;
+    }
 
+    public boolean occupy() {
+        return occupied = true;
+    }
+
+    public HouseType getType() {
+        return type;
+    }
 }

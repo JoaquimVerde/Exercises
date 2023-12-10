@@ -7,7 +7,6 @@ public class OfficeRoom extends Room {
 
 
     public OfficeRoom() {
-        super(RoomType.OFFICEROOM);
-        setActivities(new Activity[]{new Working()});
+        super(RoomType.OFFICEROOM, new Activity[]{new Working()});
     }
 }

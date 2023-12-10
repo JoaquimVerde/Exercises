@@ -9,8 +9,9 @@ public abstract class Room {
     private Activity[] activities;
 
 
-    public Room(RoomType type) {
+    public Room(RoomType type, Activity[] activities) {
         this.type = type;
+        this.activities = activities;
 
 
     }
@@ -26,5 +27,6 @@ public abstract class Room {
     public void setActivities(Activity[] activities) {
         this.activities = activities;
     }
+
 
 }

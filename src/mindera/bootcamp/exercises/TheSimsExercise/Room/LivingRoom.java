@@ -8,8 +8,7 @@ public class LivingRoom extends Room {
 
 
     public LivingRoom() {
-        super(RoomType.LIVINGROOM);
-        setActivities(new Activity[]{new Eating(), new Sleeping()});
+        super(RoomType.LIVINGROOM, new Activity[]{new Eating(), new Sleeping()});
     }
 
 

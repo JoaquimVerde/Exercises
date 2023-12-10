@@ -7,7 +7,6 @@ public class BathRoom extends Room {
 
 
     public BathRoom() {
-        super(RoomType.BATHROOM);
-        setActivities(new Activity[]{new GoToBathroom()});
+        super(RoomType.BATHROOM, new Activity[]{new GoToBathroom()});
     }
 }

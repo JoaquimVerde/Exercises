@@ -1,7 +1,7 @@
 package mindera.bootcamp.exercises.TheSimsExercise;
 
+import mindera.bootcamp.exercises.TheSimsExercise.House.BigHouse;
 import mindera.bootcamp.exercises.TheSimsExercise.House.House;
-import mindera.bootcamp.exercises.TheSimsExercise.House.SmallHouse;
 import mindera.bootcamp.exercises.TheSimsExercise.player.LazyPlayer;
 import mindera.bootcamp.exercises.TheSimsExercise.player.Sims;
 
@@ -11,15 +11,29 @@ public class Main {
 
         Sims john = new LazyPlayer("john", 23);
 
-        House smallHouse = new SmallHouse();
+        House bigHouse = new BigHouse();
 
-        john.buyHouse(smallHouse);
-        System.out.println(john.getMoney());
+        Maid christina = new Maid("Christina", 5);
+        Maid helen = new Maid("Helen", 6);
+
+
+        john.buyHouse(bigHouse);
+
+        System.out.println("#".repeat(20));
+
+        john.useOfficeRoom();
+
+        System.out.println("#".repeat(20));
+
+        john.useOfficeRoom();
+        System.out.println("#".repeat(20));
+        john.useBedRoom();
+        john.useKitchen();
         john.useBathRoom();
+        john.useLivingRoom();
+        john.useLivingRoom();
 
-        // SimsFactory.create(SimsType.LAZYPLAYER).buyHouse(HouseFactory.create(HouseType.SMALL));
-
-        //SimsFactory.create(SimsType.FUNNYPLAYER).useLivingRoom();
+        john.getMaid(5, christina);
 
 
     }
