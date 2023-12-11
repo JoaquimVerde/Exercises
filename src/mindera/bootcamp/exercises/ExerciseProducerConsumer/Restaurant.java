@@ -6,9 +6,7 @@ import java.util.Queue;
 public class Restaurant {
 
     private final Queue<Order> orders = new LinkedList<>();
-
     private final int MAX_ORDERS;
-
     private boolean isOpen;
 
 
@@ -16,6 +14,7 @@ public class Restaurant {
         isOpen = true;
         MAX_ORDERS = maxOrders;
     }
+
 
     public void placeOrder(Order order) throws InterruptedException {
         synchronized (orders) {
@@ -26,6 +25,7 @@ public class Restaurant {
             orders.notifyAll();
         }
     }
+
 
     public Order takeOrder() throws InterruptedException {
         synchronized (orders) {

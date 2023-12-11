@@ -7,6 +7,7 @@ public class Client implements Runnable {
 
     private Restaurant restaurant;
 
+
     public Client(Restaurant restaurant, int id) {
         this.id = id;
         this.restaurant = restaurant;

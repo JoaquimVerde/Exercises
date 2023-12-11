@@ -5,9 +5,7 @@ import java.util.Random;
 public class Cook implements Runnable {
 
     private final Restaurant restaurant;
-
     private final Random random;
-
     private final int id;
 
 
